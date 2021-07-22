@@ -1,0 +1,63 @@
+import io
+import os
+import csv
+import time
+import uuid
+import boto3
+#import s3fs
+#import input_internationalization as i18n
+from datetime import datetime
+from botocore.exceptions import ClientError
+
+
+
+#s3 = s3fs.S3FileSystem(anon=False)
+#s3 = boto3.client('s3')
+
+def lambda_handler(event, context):
+    #print("Received event: " + json.dumps(event, indent=2))
+    
+    # Get the object from the event and show its content type
+    # s3file_name = aws_api.gets3filename(event, context)
+    print ('--------------------------')
+    print (event)
+    
+    print('----------------------------')
+    for record in event['Records']:
+        bucket = record['s3']['bucket']['name']
+        key = record['s3']['object']['key']
+        input_file = os.path.join(bucket,key)
+        print ("The input_file is :" + input_file)
+        
+    
+    s3 = boto3.client('s3')
+    # s3.download_file('BUCKET_NAME', 'OBJECT_NAME', 'FILE_NAME')
+    s3.download_file(bucket, key, '/tmp/data1.txt')
+    
+    dr1_line = 0
+    dr2_line = 3
+    
+    print ("dr2_line : ----------")
+    print (dr2_line)
+    
+    s3_client = boto3.client('s3')
+    #response = s3_client.upload_file(file_name, bucket, object_name)
+    response = s3_client.upload_file('/tmp/data1.txt', bucket, 'data1.txt')
+    
+    """
+    with open('/tmp/data1.txt', mode='r') as csv_file:
+        dr2_reader = csv.reader(csv_file, delimiter=',')
+        for row_i in dr2_reader:
+            print('Ax1 :'+ row_i[0] + 'Ax2 :' + row_i[1] )
+    
+    csv_file.close()
+    
+    
+    with open('dr_pairs.csv', mode='r', newline='') as csv_file:
+        dr2_reader = csv.reader(csv_file2, delimiter=',')
+        dr1_line += 1                                          
+        for row_j in dr2_reader:
+            print (row_j[0] + ' - ' + row_j[1] + ' - ' + row_i[2])
+    
+    csv_file2.close()
+    """
