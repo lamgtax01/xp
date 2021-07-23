@@ -1,0 +1,11 @@
+portfolioIdentifier|analysisIdentifier|reportingDate|instrumentIdentifier|scenarioIdentifier|onBalanceSheetReserve
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|006784AD4_CUSIP_20000001_SSB-41246-1|Summary|0.0
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1385073_CUSIP_44020002_SSB-41246-1|Summary|38.56945756
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1392056_CUSIP_20000001_SSB-41246-1|Summary|0.0
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1419055_CUSIP_20000001_SSB-41246-1|Summary|0.0
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1419056_CUSIP_20000001_SSB-41246-1|Summary|0.0
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1431056_CUSIP_20000001_SSB-41246-1|Summary|222707.83
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1433055_CUSIP_20000001_SSB-41246-1|Summary|64646.98
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1436056_CUSIP_11330012_SSB-41246-1|Summary|0.0
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1449059_CUSIP_11330012_SSB-41246-1|Summary|55.62605862
+Muni portfolio testing w-mappedsector-delst|25951|2020-12-31|1449060_CUSIP_11330012_SSB-41246-1|Summary|15.30748464
