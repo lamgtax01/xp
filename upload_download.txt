@@ -1,0 +1,54 @@
+import io
+import os
+import csv
+import json
+import boto3
+from botocore.exceptions import ClientError
+
+#s3 = s3fs.S3FileSystem(anon=False)
+#s3 = boto3.client('s3')
+
+source_bucket = "zdadadtl001"
+destination_bucket = "zdadadtl002"
+proccessed_file_name = "data2.txt"
+proccessed_file_source = "/tmp/" + proccessed_file_name
+
+def lambda_handler(event, context):
+    #print("Received event: " + json.dumps(event, indent=2))
+    for record in event['Records']:
+        bucket = record['s3']['bucket']['name']
+        key = record['s3']['object']['key']
+        input_file = os.path.join(bucket,key)
+        local_file = os.path.join('/tmp/',key)
+        print ("The input_file is :" + input_file)
+        
+    
+    s3 = boto3.client('s3')
+    # s3.download_file('BUCKET_NAME', 'OBJECT_NAME', 'FILE_NAME')
+    s3.download_file(source_bucket, key, local_file)
+    print ("The local_file is :" + local_file)
+    
+    dr1_line = 0
+    dr2_line = 3
+    delimiter='|'
+    
+    with open(proccessed_file_source, mode='w', newline='') as csv_file:
+        column_names = ['portfolioIdentifier', 'analysisIdentifier', 'reportingDate', 'instrumentIdentifier','scenarioIdentifier','onBalanceSheetReserve']
+        writer = csv.DictWriter(csv_file, fieldnames=column_names)
+        writer.writeheader()
+        dr1_line += 1
+        with open(local_file, mode='r') as csv_file2:
+            dr2_reader = csv.reader(csv_file2, delimiter='|')
+            for row in dr2_reader:
+                writer.writerow({'portfolioIdentifier' : row[0], 
+                                 'analysisIdentifier' : row[1], 
+                                 'reportingDate' : row[2], 
+                                 'instrumentIdentifier' : row[3],
+                                 'scenarioIdentifier' : row[4],
+                                 'onBalanceSheetReserve' : row[5]
+                                })
+                #print(row[0] + delimiter + row[1] + delimiter + row[2] )
+                
+                
+        csv_file2.close() 
+    csv_file.close()
