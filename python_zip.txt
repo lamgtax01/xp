@@ -1,0 +1,67 @@
+I understand that you need help with zipping files in /tmp before uploading to S3. Please let me know if I'm missing something.
+
+I did a test from my end using Python and was successfully able to zip a file in tmp directory and then upload to S3 bucket.
+
+Here's code sample for your reference [1] [2]:
+
+import os 
+import boto3
+
+from zipfile import ZipFile
+
+def writeZip():
+    
+    # Create a new file
+    f = open("/tmp/myfile.txt", "x")
+    f.write("Now the file has more content!")
+    f.close()    
+    
+    # List tmp dir
+    print(os.listdir("/tmp"))
+    
+    # Zip file
+    with ZipFile('/tmp/my_python_files.zip','w') as zip:
+    # writing each file one by one
+        zip.write("/tmp/myfile.txt")
+        
+    # List tmp dir
+    print(os.listdir("/tmp"))
+    
+
+def upload_file(file_name, bucket, object_name=None):
+    
+    if object_name is None:
+        object_name = file_name
+
+    s3_client = boto3.client('s3')
+    
+    response = s3_client.upload_file(file_name, bucket, object_name)
+    
+    print(response)
+
+
+def lambda_handler(event, context):
+    
+    writeZip()
+    
+    upload_file("/tmp/my_python_files.zip", "bk-automating-aws-boto3")
+    
+    return "Success"
+
+Make sure you have the necessary permissions on both Lambda and S3 for uploading to S3 bucket [3].
+
+Please note that code support is out of scope and above code sample if for reference purpose only.
+
+I'm also sharing the useful resources for your reference.
+
+I hope this helps and please let me know if you have any questions.
+
+Have a good day!
+
+References:
+
+[1] https://www.geeksforgeeks.org/working-zip-files-python/ 
+[2] https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-uploading-files.html 
+[3] https://aws.amazon.com/premiumsupport/knowledge-center/lambda-execution-role-s3-bucket/ 
+
+

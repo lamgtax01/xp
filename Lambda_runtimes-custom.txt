@@ -1,0 +1,15 @@
+While we recommend that you call AWS APIs directly by using the appropriate SDK from your function code, it is indeed possible to execute AWS CLI commands in Lambda functions. This use can be achieved by creating a custom runtime in AWS Lambda [1]. A runtime is a program that runs a Lambda function's handler method when the function is invoked. You can include a runtime in your function's deployment package in the form of an executable file named bootstrap.
+
+I have also included a walkthrough tutorial from the AWS Lambda Developer guide [2] which you can use to create a Lambda function with the bash runtime. This will allow you to execute bash commands but you will need to make sure that you also have to include the AWS CLI as a layer to make AWS CLI commands.
+
+Another solution that may suit your use case, would be to use the AWS CLI within a python Lambda function. The steps to implement this are outlined in the following third party article [3]. This includes the steps for creating the required layer including the AWS CLI. Once implemented, you will be able to execute cli commands from within your Lambda function code.
+
+I hope the above information helps. In case you have any further queries or concerns, please feel free to reach out to me and I will be more than happy to assist you!
+
+Have a great day! 
+
+
+References:
+[1] https://docs.aws.amazon.com/en_us/lambda/latest/dg/runtimes-custom.html 
+[2] https://docs.aws.amazon.com/lambda/latest/dg/runtimes-walkthrough.html 
+[3] https://bezdelev.com/hacking/aws-cli-inside-lambda-layer-aws-s3-sync/ 
